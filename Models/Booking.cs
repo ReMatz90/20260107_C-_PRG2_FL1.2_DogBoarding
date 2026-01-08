@@ -28,7 +28,7 @@ namespace DogBoarding.Models
 
         #endregion
 
-        #region Computed Properties
+        #region Calculated Properties
 
         public int DaysBooked
         {
@@ -37,6 +37,40 @@ namespace DogBoarding.Models
                 return (EndDate - StartDate).Days +1;
             }
             
+        }
+
+        #endregion
+
+        #region Status Transitions
+
+        public void Confirm()
+        {
+            if(Status != BookingStatus.Requested)
+            {
+                return;
+            }
+
+            Status = BookingStatus.Confirmed;
+        }
+
+        public void MarkAsPaid()
+        {
+            if(Status != BookingStatus.Confirmed)
+            {
+                return;
+            }
+
+            Status = BookingStatus.Paid;
+        }
+
+        public void Cancel()
+        {
+            if(Status == BookingStatus.Paid)
+            {
+                return;
+            }
+
+            Status = BookingStatus.Cancelled;
         }
 
         #endregion
