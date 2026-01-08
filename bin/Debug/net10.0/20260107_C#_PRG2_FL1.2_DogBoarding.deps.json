@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "20260107_C#_PRG2_FL1.2_DogBoarding/1.0.0": {
+        "runtime": {
+          "20260107_C#_PRG2_FL1.2_DogBoarding.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "20260107_C#_PRG2_FL1.2_DogBoarding/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
