@@ -43,34 +43,47 @@ namespace DogBoarding.Models
 
         #region Status Transitions
 
-        public void Confirm()
+        public bool Confirm()
         {
             if(Status != BookingStatus.Requested)
             {
-                return;
+                return false;
             }
 
             Status = BookingStatus.Confirmed;
+            return true;
         }
 
-        public void MarkAsPaid()
-        {
+        public bool MarkAsPaid()
+        {   
             if(Status != BookingStatus.Confirmed)
             {
-                return;
+                return false;
             }
 
             Status = BookingStatus.Paid;
+            return true;
         }
 
-        public void Cancel()
+        public bool Cancel()
         {
             if(Status == BookingStatus.Paid)
             {
-                return;
+                return false;
             }
 
             Status = BookingStatus.Cancelled;
+            return true;
+        }
+
+        public void ForceStatus(BookingStatus newStatus)
+        {
+            if(!Enum.IsDefined(typeof(BookingStatus), newStatus))
+            {
+                throw new ArgumentException("Invalid booking status");
+            }
+
+            Status = newStatus;
         }
 
         #endregion
