@@ -28,6 +28,15 @@ namespace DogBoarding.Models
 
         #endregion
 
+        #region Pricing Constants
+
+        private const decimal BasePricePerDay = 30.0m;
+        private const decimal HeavyDogPricePerDay = 36.0m;
+        private const double HeavyDogWeightThreshold = 20.0;
+
+        #endregion
+
+
         #region Calculated Properties
 
         public int DaysBooked
@@ -37,6 +46,24 @@ namespace DogBoarding.Models
                 return (EndDate - StartDate).Days +1;
             }
             
+        }
+
+        public decimal PricePerDay
+        {
+            get
+            {
+                return Dog.DogWeight >HeavyDogWeightThreshold
+                ? HeavyDogPricePerDay
+                : BasePricePerDay;
+            }
+        }
+
+        public decimal TotalPrice
+        {
+            get
+            {
+                return PricePerDay * DaysBooked;
+            }
         }
 
         #endregion
@@ -85,6 +112,31 @@ namespace DogBoarding.Models
 
             Status = newStatus;
         }
+
+        #endregion
+
+        #region CSV Export
+
+        public static string CsvHeader =>
+        "OwnerName;DogName;DogWeight;StartDate;EndDate;Days;PricePerDay;TotalPrice;Status";
+
+        //Maybe alter ; to , for German-Excel-Version compatibility
+
+        /*public string ToCSV()
+        {
+            return string.Join(",",
+                Dog.OwnerName,
+                Dog.DogName,
+                Dog.DogWeight,
+                StartDate.ToString("yyyy-MM-dd"),
+                EndDate.ToString("yyyy-MM-dd"),
+                DaysBooked,
+                Dog.PricePerDay.ToString("F2"),
+                (DaysBooked * Dog.PricePerDay).ToString("F2"),
+                Status.ToString()
+            );
+        }*/
+
 
         #endregion
         
