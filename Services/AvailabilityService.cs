@@ -42,5 +42,27 @@ namespace DogBoarding.Services
 
             return days;
         }
+
+        public bool CanBook(
+            List<Booking> bookings,
+            DateTime startDate,
+            DateTime endDate)
+        {
+            var availability = CalculateAvailability(
+                bookings,
+                startDate,
+                endDate);
+
+            foreach (var day in availability)
+            {
+                if (!day.CanAcceptAnotherDog())
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
     }
 }
